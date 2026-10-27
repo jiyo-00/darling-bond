@@ -1,0 +1,308 @@
+<!doctype html>
+<!-- Tell the browser to use modern HTML standards mode. -->
+<html lang="en">
+  <!-- Store page settings and linked resources that are not shown as page content. -->
+  <head>
+    <!-- Set the text encoding so common characters display correctly. -->
+    <meta charset="utf-8">
+    <!-- Make the layout use the device's actual screen width on phones and tablets. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Set the page title shown in the browser tab and search results. -->
+    <title>Little Site | A simple HTML example</title>
+    <!-- Describe the page briefly for search engines and link previews. -->
+    <meta name="description" content="A small, friendly example website made with HTML, CSS, and JavaScript.">
+
+    <!-- Begin the page styles; keeping them here makes this example easy to run. -->
+    <style>
+      /* Define reusable colors and spacing values for the whole page. */
+      :root {
+        color-scheme: light;
+        --ink: #1d2b2a;
+        --muted: #526461;
+        --paper: #f5f8f4;
+        --surface: #ffffff;
+        --accent: #176b58;
+        --accent-dark: #10513f;
+        --highlight: #d7eddf;
+      }
+
+      /* Make element sizing predictable and smooth anchor-link navigation. */
+      * {
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+
+      /* Set the default font, text color, background, and page spacing. */
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.6;
+      }
+
+      /* Keep the page content centered and readable on wide screens. */
+      .container {
+        width: min(100% - 2rem, 68rem);
+        margin-inline: auto;
+      }
+
+      /* Arrange the site name and navigation in a simple header row. */
+      .site-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-block: 1.25rem;
+      }
+
+      /* Style the site name as a clear link without an underline. */
+      .brand {
+        color: var(--ink);
+        font-size: 1.15rem;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      /* Lay out the navigation links and let them wrap on small screens. */
+      .site-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      /* Give navigation links a readable color and visible hover feedback. */
+      .site-nav a {
+        color: var(--muted);
+        font-weight: 650;
+        text-decoration: none;
+      }
+
+      /* Use the accent color to show which navigation link is under the pointer. */
+      .site-nav a:hover {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 0.25em;
+      }
+
+      /* Add space around the main introduction and use a soft highlight panel. */
+      .hero {
+        margin-top: 1.5rem;
+        padding: clamp(2rem, 7vw, 5rem);
+        border-radius: 1.5rem;
+        background: var(--highlight);
+      }
+
+      /* Keep the introductory text from becoming too wide to read comfortably. */
+      .hero-content {
+        max-width: 42rem;
+      }
+
+      /* Style the small introductory label above the main heading. */
+      .eyebrow {
+        color: var(--accent-dark);
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      /* Make the main heading prominent while keeping it responsive. */
+      h1 {
+        max-width: 12ch;
+        margin: 0.5rem 0 1rem;
+        font-size: clamp(2.5rem, 8vw, 5rem);
+        line-height: 1.05;
+      }
+
+      /* Use the secondary text color for supporting descriptions. */
+      .hero p,
+      .section-intro {
+        color: var(--muted);
+        font-size: 1.1rem;
+      }
+
+      /* Style the call-to-action link as a button. */
+      .button {
+        display: inline-block;
+        margin-top: 0.75rem;
+        padding: 0.8rem 1.2rem;
+        border-radius: 0.6rem;
+        background: var(--accent);
+        color: white;
+        font-weight: 750;
+        text-decoration: none;
+      }
+
+      /* Darken the button on hover so the interaction is easy to notice. */
+      .button:hover {
+        background: var(--accent-dark);
+      }
+
+      /* Add a clear focus indicator for keyboard users. */
+      a:focus-visible {
+        outline: 3px solid #c24e23;
+        outline-offset: 4px;
+      }
+
+      /* Separate the information section from the introduction. */
+      .section {
+        padding-block: 4rem;
+      }
+
+      /* Keep section headings clear and consistently sized. */
+      h2 {
+        margin: 0 0 0.5rem;
+        font-size: clamp(1.7rem, 4vw, 2.4rem);
+        line-height: 1.2;
+      }
+
+      /* Display the feature cards in columns when space allows. */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1.75rem;
+      }
+
+      /* Give each feature card its own readable surface and spacing. */
+      .card {
+        padding: 1.5rem;
+        border: 1px solid #dce5df;
+        border-radius: 1rem;
+        background: var(--surface);
+      }
+
+      /* Remove excess top margin from card headings. */
+      .card h3 {
+        margin-top: 0;
+      }
+
+      /* Make the footer distinct while keeping its content aligned. */
+      .site-footer {
+        padding-block: 1.5rem;
+        border-top: 1px solid #dce5df;
+        color: var(--muted);
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      /* Stack cards and header content when the screen is narrow. */
+      @media (max-width: 42rem) {
+        .site-header {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .cards {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          margin-top: 0.5rem;
+        }
+      }
+
+      /* Respect visitors who ask their device to reduce motion. */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+
+  <!-- Put the visible, interactive content of the page inside the body. -->
+  <body>
+    <!-- Provide the shared site header and a navigation landmark. -->
+    <header class="site-header container">
+      <!-- Link the site name back to the top of this page. -->
+      <a class="brand" href="#home">Little Site</a>
+
+      <!-- Group links that help visitors move between page sections. -->
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#features">What you'll learn</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Mark the unique primary content area of this page. -->
+    <main id="home" class="container">
+      <!-- Introduce the site and invite visitors to explore it. -->
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-content">
+          <!-- Tell visitors what kind of example page this is. -->
+          <p class="eyebrow">A friendly starting point</p>
+          <!-- Give the page one clear, descriptive main heading. -->
+          <h1 id="page-title">A little site with a lot of possibility.</h1>
+          <!-- Summarize the purpose of the page in plain language. -->
+          <p>This simple page shows how semantic HTML and a little CSS can make a welcoming, responsive website.</p>
+          <!-- Link to the next useful section so visitors can continue reading. -->
+          <a class="button" href="#about">Explore the page</a>
+        </div>
+      </section>
+
+      <!-- Explain the example's purpose in its own named section. -->
+      <section id="about" class="section" aria-labelledby="about-title">
+        <!-- Introduce the section before its supporting details. -->
+        <h2 id="about-title">A simple place to begin</h2>
+        <!-- Describe what visitors can take away from the sample. -->
+        <p class="section-intro">Start with meaningful content, organize it clearly, and make it comfortable to use on any screen.</p>
+      </section>
+
+      <!-- Summarize three useful ideas in a scannable card layout. -->
+      <section id="features" class="section" aria-labelledby="features-title">
+        <!-- Give the group of cards a clear section heading. -->
+        <h2 id="features-title">Good foundations</h2>
+        <!-- Explain why the following principles matter. -->
+        <p class="section-intro">A few thoughtful choices make a site easier to use and maintain.</p>
+
+        <!-- Group related cards so the layout can adapt at smaller widths. -->
+        <div class="cards">
+          <!-- Describe the value of semantic markup. -->
+          <article class="card">
+            <h3>Clear structure</h3>
+            <p>Use headings, landmarks, and sections to give content a helpful order.</p>
+          </article>
+
+          <!-- Describe the value of accessibility basics. -->
+          <article class="card">
+            <h3>Welcoming to everyone</h3>
+            <p>Choose readable text, descriptive links, and keyboard-friendly controls.</p>
+          </article>
+
+          <!-- Describe the value of responsive design. -->
+          <article class="card">
+            <h3>Ready for any screen</h3>
+            <p>Let the layout adapt so the page remains useful on phones and desktops.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Give visitors a direct way to get in touch. -->
+      <section id="contact" class="section" aria-labelledby="contact-title">
+        <!-- Label the contact area for both visual and assistive-technology users. -->
+        <h2 id="contact-title">Say hello</h2>
+        <!-- Use a real email link so visitors can open their mail application. -->
+        <p>Have a question? <a href="mailto:hello@example.com">Send us an email</a>.</p>
+      </section>
+    </main>
+
+    <!-- Place small-print information at the bottom of the page. -->
+    <footer class="site-footer">
+      <!-- JavaScript fills in the current year when the page loads. -->
+      <p>Made for learning HTML. &copy; <span id="current-year"></span> Little Site</p>
+    </footer>
+
+    <!-- Add a small script to keep the copyright year current automatically. -->
+    <script>
+      // Find the year placeholder in the footer.
+      const yearElement = document.querySelector("#current-year");
+      // Display the current year using the visitor's device date.
+      yearElement.textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
